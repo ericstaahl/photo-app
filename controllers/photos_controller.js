@@ -12,11 +12,13 @@ const models = require('../models');
  * GET /
  */
 const index = async (req, res) => {
-	const photos = await models.Photos.fetchAll();
+	const photos = await models.Photos.fetchAll({withRelated: ['user']});
 
 	res.send({
 		status: 'success',
-		data: photos,
+		data: {
+			photos,
+		}
 	});
 }
 
