@@ -71,10 +71,13 @@ const login = async (req, res) => {
 
 	const access_token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_LIFETIME, });
 
+	const refresh_token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKEN_LIFETIME, });
+
 	return res.send({
 		status: 'success',
 		data: {
 			access_token,
+			refresh_token
 		}
 	})
 };
