@@ -37,7 +37,7 @@ const models = require('../models');
 	}});
 	res.send({
 		status: 'success',
-		data: userWithPhoto,
+		data: userWithPhoto.relations.photos,
 	});
 };
 
