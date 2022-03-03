@@ -6,7 +6,7 @@ const auth = require('../middlewares/auth');
 /* Get all photos */
 router.get ('/', auth.validateToken, routesController.index);
 /* Get a photo */
-// router.get ('/:photoId', auth.validateToken, routesController.show);
+router.get ('/:photoId', auth.validateToken, routesController.show);
 
 
 module.exports = router;

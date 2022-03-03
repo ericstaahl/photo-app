@@ -16,25 +16,35 @@ const models = require('../models');
  const index = async (req, res) => {
 	const photo = await models.User.fetchById(req.user.user_id);
 	const userWithPhotos = await photo.load('photos');
-	// const { photos } = photo
 	res.send({
 		status: 'success',
 		data: userWithPhotos.relations.photos
-		// data: photo,
 	});
 };
 
 
 /**
- * Get a specific resource
+ * Get a specific photo from the current user
  *
- * GET /:exampleId
+ * GET /:photoId
  */
 
+ const show = async (req, res) => {
+	const photo = await models.User.fetchById(req.user.user_id);
+	// Filter the relations to only show the photo requested by the user.
+	const userWithPhoto = await photo.load({photos: function(qb) {
+		qb.where('photos.id', '=', req.params.photoId)
+	}});
+	res.send({
+		status: 'success',
+		data: userWithPhoto,
+	});
+};
 
 
 
 
 module.exports = {
 	index,
+	show
 }
