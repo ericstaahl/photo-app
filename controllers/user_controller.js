@@ -35,10 +35,22 @@ const models = require('../models');
 	const userWithPhoto = await photo.load({photos: function(qb) {
 		qb.where('photos.id', '=', req.params.photoId)
 	}});
-	res.send({
-		status: 'success',
-		data: userWithPhoto.relations.photos,
-	});
+
+
+	console.log("Logg: " + Object.keys(userWithPhoto.relations.photos))
+	// TODO: double-check wether or not the this is a good way to check if no photo was found
+	if (!userWithPhoto.relations.photos.length) {
+		res.send({
+			status: 'failed',
+			data: "A photo with this id was not found on the user.",
+		});
+	} else {
+		res.send({
+			status: 'success',
+			data: userWithPhoto.relations.photos,
+		});
+	}
+	
 };
 
 
