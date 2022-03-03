@@ -82,7 +82,32 @@ const login = async (req, res) => {
 	})
 };
 
+const refresh = async (req, res) => {
+	try {
+		const payload = jwt.verify(req.body.token, process.env.REFRESH_TOKEN_SECRET);
+		console.log('payload', payload);
+		delete payload.iat;
+		delete payload.exp;
+		console.log('payload', payload);
+
+		const access_token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_LIFETIME, });
+
+		return res.send({
+			status: 'success',
+			data: {
+				access_token,
+			}
+		})
+	} catch {
+		return res.status(401).send({
+			status: 'fail',
+			data: 'Invalid token'
+		});
+	}
+}
+
 module.exports = {
+	login,
 	register,
-	login
+	refresh,
 }
