@@ -1,5 +1,5 @@
 /**
- * Photos Controller
+ * User Controller
  */
 
 const debug = require('debug')('books:example_controller');
@@ -22,6 +22,40 @@ const models = require('../models');
 	});
 };
 
+/**
+ * Store a new photo on the current user
+ *
+ * POST /
+ */
+
+const store = async (req, res) => {
+	// check for any validation errors
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).send({ status: 'fail', data: errors.array() });
+	}
+
+	// get only the validated data from the request
+	const validData = matchedData(req);
+	// add the current user's id to the photo
+	validData.user_id = req.user.user_id;
+	try {
+		const photo = await new models.Photos(validData).save();
+		debug("Created new photo successfully: %O", photo);
+
+		res.send({
+			status: 'success',
+			data: photo,
+		});
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown in database when creating a new photo.',
+		});
+		throw error;
+	}
+}
 
 /**
  * Get a specific photo from the current user
@@ -37,7 +71,7 @@ const models = require('../models');
 	}});
 
 
-	console.log("Logg: " + Object.keys(userWithPhoto.relations.photos))
+	console.log("Log: " + Object.keys(userWithPhoto.relations.photos))
 	// TODO: double-check wether or not the this is a good way to check if no photo was found
 	if (!userWithPhoto.relations.photos.length) {
 		res.send({
@@ -56,7 +90,9 @@ const models = require('../models');
 
 
 
+
 module.exports = {
 	index,
-	show
+	show,
+	store,
 }
