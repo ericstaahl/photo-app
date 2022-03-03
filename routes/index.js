@@ -10,6 +10,7 @@ router.get('/', (req, res, next) => {
 
 router.use('/example', require('./example'));
 router.use('/photos', require('./photo'));
+router.use('/user', require('./user'));
 router.post('/login', authController.login);
 router.post('/register', userValidationRules.registerRules, authController.register);
 router.post('/refresh', authController.refresh);

@@ -6,11 +6,14 @@ const bcrypt = require('bcrypt');
 module.exports = (bookshelf) => {
 	return bookshelf.model('User', {
 		tableName: 'users',
-		// photos() {
-		// 	return this.hasMany('Photo');
-		// }
+		photos() {
+			return this.hasMany('Photo');
+		}
 	},
 		{
+			async fetchById(id) {
+				return await new this({ id }).fetch();
+			},
 			async login(email, password) {
 				const user = await new this({ email }).fetch({require:false});
 				if (!user) {
