@@ -10,5 +10,7 @@ router.get ('/', auth.validateToken, routesController.index);
 router.get ('/:photoId', auth.validateToken, routesController.show);
 /* Store a new photo */
 router.post ('/', auth.validateToken, photoValidationRules.createRules, routesController.store);
+/* Update a photo */
+router.put ('/:photoId', auth.validateToken, photoValidationRules.updateRules, routesController.update)
 
 module.exports = router;
