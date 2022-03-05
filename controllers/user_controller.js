@@ -7,20 +7,40 @@ const { matchedData, validationResult } = require('express-validator');
 // const { Photos } = require('../models');
 const models = require('../models');
 
-/**
- * Get all photos of user
- *
- * GET /
- */
+// /**
+//  * OLD SOLUTION!!!
+//  * Get all photos of user
+//  *
+//  * GET /
+//  */
+
+// const index = async (req, res) => {
+// 	const photo = await models.User.fetchById(req.user.user_id);
+// 	const userWithPhotos = await photo.load('photos');
+// 	res.send({
+// 		status: 'success',
+// 		data: userWithPhotos.relations.photos
+// 	});
+// };
 
 const index = async (req, res) => {
-	const photo = await models.User.fetchById(req.user.user_id);
-	const userWithPhotos = await photo.load('photos');
-	res.send({
-		status: 'success',
-		data: userWithPhotos.relations.photos
-	});
-};
+	const user_id = req.user.user_id;
+	console.log(user_id)
+	const photo = await new models.Photos().where('user_id', '=', user_id).fetchAll({ require: false });
+	console.log(photo);
+	if (!photo) {
+		res.status(404).send({
+			status: 'fail',
+			data: 'No photos found on the current user.',
+		})
+	} else
+		res.send({
+			status: 'success',
+			data: photo,
+		});
+}
+
+
 
 /**
  * Store a new photo on the current user
@@ -59,37 +79,59 @@ const store = async (req, res) => {
 
 
 /**
+ * OLD SOLUTION!!! 
  * Get a specific photo from the current user
  *
  * GET /:photoId
  */
 
+// const show = async (req, res) => {
+// 	const photo = await models.User.fetchById(req.user.user_id);
+// 	// Filter the relations to only show the photo requested by the user.
+// 	const userWithPhoto = await photo.load({
+// 		photos: function (qb) {
+// 			qb.where('photos.id', '=', req.params.photoId)
+// 		}
+// 	});
+
+
+// 	console.log("Log: " + Object.keys(userWithPhoto.relations.photos))
+// 	// TODO: double-check wether or not the this is a good way to check if no photo was found
+// 	if (!userWithPhoto.relations.photos.length) {
+// 		res.send({
+// 			status: 'failed',
+// 			data: "A photo with this id was not found on the user.",
+// 		});
+// 	} else {
+// 		res.send({
+// 			status: 'success',
+// 			data: userWithPhoto.relations.photos,
+// 		});
+// 	}
+// };
+
+/**
+ * Get a specific photo from the current user
+ *
+ * GET /:photoId
+ */
+
+
 const show = async (req, res) => {
-	const photo = await models.User.fetchById(req.user.user_id);
-	// Filter the relations to only show the photo requested by the user.
-	const userWithPhoto = await photo.load({
-		photos: function (qb) {
-			qb.where('photos.id', '=', req.params.photoId)
-		}
-	});
-
-
-	console.log("Log: " + Object.keys(userWithPhoto.relations.photos))
-	// TODO: double-check wether or not the this is a good way to check if no photo was found
-	if (!userWithPhoto.relations.photos.length) {
-		res.send({
-			status: 'failed',
-			data: "A photo with this id was not found on the user.",
-		});
-	} else {
+	const photoId = req.params.photoId;
+	const user_id = req.user.user_id;
+	const photo = await new models.Photos({ id: photoId, user_id: user_id }).fetch({ require: false });
+	if (!photo) {
+		res.status(404).send({
+			status: 'fail',
+			data: 'The requested photo was not found',
+		})
+	} else
 		res.send({
 			status: 'success',
-			data: userWithPhoto.relations.photos,
+			data: photo,
 		});
-	}
-
-};
-
+}
 /**
  * Update a photo on the current user
  *
