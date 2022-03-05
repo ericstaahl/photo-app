@@ -34,7 +34,7 @@ const index = async (req, res) => {
 			data: 'No photos found on the current user.',
 		})
 	} else
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: photo,
 		});
@@ -62,7 +62,7 @@ const store = async (req, res) => {
 	try {
 		const photo = await new models.Photos(validData).save();
 
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: photo,
 		});
@@ -126,7 +126,7 @@ const show = async (req, res) => {
 			data: 'The requested photo was not found',
 		})
 	} else
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: photo,
 		});
@@ -163,7 +163,7 @@ const update = async (req, res) => {
 	try {
 		const updatedPhoto = await photo.save(validData);
 
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: updatedPhoto,
 		});
