@@ -61,7 +61,6 @@ const store = async (req, res) => {
 	validData.user_id = req.user.user_id;
 	try {
 		const photo = await new models.Photos(validData).save();
-		debug("Created new photo successfully: %O", photo);
 
 		res.send({
 			status: 'success',
