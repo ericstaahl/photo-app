@@ -87,21 +87,29 @@ const store = async (req, res) => {
  *
  * POST /
  */
- const storePhoto = async (req, res) => {
+const addPhoto = async (req, res) => {
+	const albumId = req.params.albumId;
+	const user_id = req.user.user_id;
+	const photo_id = req.body.photo_id;
+	// Check if the photo exist (and owned by the user) in the database
+	const photo = await new models.Photos({ id: photo_id, user_id: user_id }).fetch({ require: false });
+	if (!photo) {
+		return res.status(404).send({
+			status: 'fail',
+			data: 'Photo not found',
+		});
+	}
 	try {
-		const albumId = req.params.albumId;
-		const user_id = req.user.user_id;
-		const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ withRelated: ['photos'], require: false });
-		
+		const album = await new models.Albums({ id: albumId, user_id: user_id }).photos().attach(photo_id);
+
 		res.status(200).send({
 			status: 'success',
 			data: album,
-		});
-
+		})
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Exception thrown in database when creating a new album.',
+			message: 'Exception thrown in database when creating relation.',
 		});
 		throw error;
 	}
@@ -169,7 +177,7 @@ module.exports = {
 	index,
 	show,
 	store,
-	storePhoto,
+	addPhoto,
 	update,
 	destroy,
 }
