@@ -83,6 +83,31 @@ const store = async (req, res) => {
 }
 
 /**
+ * Store a new album
+ *
+ * POST /
+ */
+ const storePhoto = async (req, res) => {
+	try {
+		const albumId = req.params.albumId;
+		const user_id = req.user.user_id;
+		const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ withRelated: ['photos'], require: false });
+		
+		res.status(200).send({
+			status: 'success',
+			data: album,
+		});
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown in database when creating a new album.',
+		});
+		throw error;
+	}
+}
+
+/**
  * Update a specific resource
  *
  * PUT /:exampleId
@@ -144,6 +169,7 @@ module.exports = {
 	index,
 	show,
 	store,
+	storePhoto,
 	update,
 	destroy,
 }
