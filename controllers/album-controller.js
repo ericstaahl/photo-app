@@ -35,7 +35,7 @@ const index = async (req, res) => {
 const show = async (req, res) => {
 	const albumId = req.params.albumId;
 	const user_id = req.user.user_id;
-	const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
+	const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ withRelated: ['photos'], require: false });
 	if (!album) {
 		res.status(404).send({
 			status: 'fail',
