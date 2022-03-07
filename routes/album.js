@@ -16,9 +16,6 @@ router.post('/', auth.validateToken, albumValidationRules.createRules, routesCon
 /* Add a photo to the album */
 router.post('/:albumId/photos', auth.validateToken, routesController.addPhoto);
 
-/* Add multiple photos to the album */
-router.post('/:albumId/multiplePhotos', auth.validateToken, routesController.addMultiplePhotos);
-
 /* Update a specific resource */
 router.put('/:albumId', auth.validateToken, albumValidationRules.updateRules, routesController.update);
 
