@@ -83,7 +83,7 @@ const store = async (req, res) => {
 }
 
 /**
- * Store a new album
+ * Store a new photo in an album
  *
  * POST /
  */
@@ -99,6 +99,20 @@ const addPhoto = async (req, res) => {
 			data: 'Photo not found',
 		});
 	}
+	// Check if the photo already exists in the album
+	const checkingAlbum = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ withRelated: ['photos'], require: false });
+	let exists = false;
+	checkingAlbum.related('photos').forEach(photo => {
+		if (photo_id == photo.id) {
+			exists = true
+		};
+	});
+	if (exists) {
+		return res.send({
+			status: 'fail',
+			data: 'Photo already exists on the album',
+		});
+	};
 	try {
 		const album = await new models.Albums({ id: albumId, user_id: user_id }).photos().attach(photo_id);
 
@@ -112,8 +126,12 @@ const addPhoto = async (req, res) => {
 			message: 'Exception thrown in database when creating relation.',
 		});
 		throw error;
-	}
-}
+	};
+};
+
+// const addMultiplePhotos = async (req, res) => {
+
+// }
 
 /**
  * Update a specific resource
