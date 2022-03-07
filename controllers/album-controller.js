@@ -129,9 +129,56 @@ const addPhoto = async (req, res) => {
 	};
 };
 
-// const addMultiplePhotos = async (req, res) => {
+const addMultiplePhotos = async (req, res) => {
+	const albumId = req.params.albumId;
+	const user_id = req.user.user_id;
+	const photo_ids = req.body.photo_id;
+	// Check if the photos exist (and owned by the user) in the database
+	const checkedIds = [];
+	const checkingAlbum = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ withRelated: ['photos'], require: false });
+	for (const photo_id of photo_ids) {
+		const photo = await new models.Photos({ id: photo_id, user_id: user_id }).fetch({ require: false });
+		if (photo) {
+			checkedIds.push(photo_id)
+		};
+	};
+	console.log("All of the existing ID:s " + checkedIds)
 
-// }
+	// Check if the photos already exists in the album
+	const checkedIdsRound2 = [];
+	for (const photo_id of checkedIds) {
+		let exists = true;
+		checkingAlbum.related('photos').forEach(photo => {
+			if (photo_id == photo.id) {
+				exists = false;
+			};
+		});
+		if (exists) {
+			checkedIdsRound2.push(photo_id);
+		}
+	};
+	console.log("All of the ID:s not in the album: " + checkedIdsRound2)
+	if (checkedIdsRound2.length == 0) {
+		return res.status(200).send({
+			status: 'The following photos already exist on the album',
+			data: checkedIds,
+		})
+	}
+	try {
+		const album = await new models.Albums({ id: albumId, user_id: user_id }).photos().attach(checkedIdsRound2);
+
+		res.status(200).send({
+			status: 'success',
+			data: album,
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown in database when creating relation.',
+		});
+		throw error;
+	};
+};
 
 /**
  * Update a specific resource
@@ -197,6 +244,7 @@ module.exports = {
 	show,
 	store,
 	addPhoto,
+	addMultiplePhotos,
 	update,
 	destroy,
 }
