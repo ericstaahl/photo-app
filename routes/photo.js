@@ -12,5 +12,7 @@ router.get ('/:photoId', auth.validateToken, routesController.show);
 router.post ('/', auth.validateToken, photoValidationRules.createRules, routesController.store);
 /* Update a photo */
 router.put ('/:photoId', auth.validateToken, photoValidationRules.updateRules, routesController.update)
+/* Delete a photo */
+router.delete ('/:photoId', auth.validateToken, routesController.destroy)
 
 module.exports = router;

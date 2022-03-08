@@ -76,39 +76,6 @@ const store = async (req, res) => {
 	}
 }
 
-
-/**
- * OLD SOLUTION!!! 
- * Get a specific photo from the current user
- *
- * GET /:photoId
- */
-
-// const show = async (req, res) => {
-// 	const photo = await models.User.fetchById(req.user.user_id);
-// 	// Filter the relations to only show the photo requested by the user.
-// 	const userWithPhoto = await photo.load({
-// 		photos: function (qb) {
-// 			qb.where('photos.id', '=', req.params.photoId)
-// 		}
-// 	});
-
-
-// 	console.log("Log: " + Object.keys(userWithPhoto.relations.photos))
-// 	// TODO: double-check wether or not the this is a good way to check if no photo was found
-// 	if (!userWithPhoto.relations.photos.length) {
-// 		res.send({
-// 			status: 'failed',
-// 			data: "A photo with this id was not found on the user.",
-// 		});
-// 	} else {
-// 		res.send({
-// 			status: 'success',
-// 			data: userWithPhoto.relations.photos,
-// 		});
-// 	}
-// };
-
 /**
  * Get a specific photo from the current user
  *
@@ -146,7 +113,7 @@ const update = async (req, res) => {
 	if (!photo) {
 		res.status(404).send({
 			status: 'fail',
-			data: 'Example Not Found',
+			data: 'Photo not found',
 		});
 		return;
 	};
@@ -177,9 +144,40 @@ const update = async (req, res) => {
 	};
 };
 
+const destroy = async (req, res) => {
+	const photoId = req.params.photoId;
+	const user_id = req.user.user_id;
+
+	// Check if the requested photo exist with the current user ID
+	const photo = await new models.Photos({ id: photoId, user_id: user_id }).fetch({ withRelated: ['album'], require: false });
+	if (!photo) {
+		res.status(404).send({
+			status: 'fail',
+			data: 'Photo not found',
+		});
+		return;
+	};
+	try {
+		let deletedPhoto = await photo.album().detach();
+		deletedPhoto = await photo.destroy();
+		
+		res.status(200).send({
+			status: 'success',
+			data: deletedPhoto,
+		});
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown in database when attempting to delete a photo.',
+		});
+		throw error;
+	};	
+};
+
 module.exports = {
 	index,
 	show,
 	store,
-	update
+	update,
+	destroy
 }
