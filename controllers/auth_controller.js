@@ -1,5 +1,5 @@
 /**
- * Users Controller
+ * Authentication Controller
  */
 
 const bcrypt = require('bcrypt');
@@ -53,6 +53,8 @@ const register = async (req, res) => {
 	};
 };
 
+// Check if the user exists in the database and if so return an access-token and a refresh-token
+
 const login = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -82,6 +84,7 @@ const login = async (req, res) => {
 	})
 };
 
+// Get a new access-token for the logged in user (as long as the refresh-token hasn't expired)
 const refresh = async (req, res) => {
 	try {
 		const payload = jwt.verify(req.body.token, process.env.REFRESH_TOKEN_SECRET);

@@ -101,6 +101,10 @@ const addPhoto = async (req, res) => {
 		});
 	};
 
+	// Check if the incoming photo_id contains an array or not
+	// If not an array run code that adds one photo at a time. 
+	// If an array run code that adds multiple photos at a time.
+
 	if (!Array.isArray(photo_id)) {
 
 		// Check if the photo exist (and owned by the user) in the database
@@ -174,6 +178,7 @@ const addPhoto = async (req, res) => {
 				data: checkedIds,
 			})
 		}
+		// Only the photos that passed the two checks are attached to the album
 		try {
 			const album = await new models.Albums({ id: albumId, user_id: user_id }).photos().attach(checkedIdsRound2);
 
@@ -190,13 +195,6 @@ const addPhoto = async (req, res) => {
 		};
 	};
 }
-
-
-// const addMultiplePhotos = async (req, res) => {
-// 	const albumId = req.params.albumId;
-// 	const user_id = req.user.user_id;
-// 	const photo_ids = req.body.photo_id;
-
 
 /**
  * Update a specific resource
@@ -289,6 +287,11 @@ const removePhoto = async (req, res) => {
 	};
 };
 
+/**
+ * Remove an album and detach all of its relations
+ *
+ * DELETE /albums/:albumId/
+ */
 const destroy = async (req, res) => {
 	const albumId = req.params.albumId;
 	const user_id = req.user.user_id;
