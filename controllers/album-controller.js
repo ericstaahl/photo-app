@@ -250,7 +250,7 @@ const update = async (req, res) => {
  *
  * DELETE /albums/:albumId/photos/:photoId
  */
-const destroy = async (req, res) => {
+const removePhoto = async (req, res) => {
 	const photoId = req.params.photoId;
 	const albumId = req.params.albumId;
 	const user_id = req.user.user_id;
@@ -264,21 +264,21 @@ const destroy = async (req, res) => {
 		});
 		return;
 	};
-		// Check if the requested album exists with the current user ID
-		const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
-		if (!album) {
-			res.status(404).send({
-				status: 'fail',
-				data: 'Album not found',
-			});
-			return;
-		};
+	// Check if the requested album exists with the current user ID
+	const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
+	if (!album) {
+		res.status(404).send({
+			status: 'fail',
+			data: 'Album not found',
+		});
+		return;
+	};
 	try {
 		let detachedPhoto = await album.photos().detach(photo.id);
-		
+
 		res.status(200).send({
 			status: 'success',
-			data: detachedPhoto,
+			data: null,
 		});
 	} catch (error) {
 		res.status(500).send({
@@ -286,7 +286,39 @@ const destroy = async (req, res) => {
 			message: 'Exception thrown in database when attempting to remove a photo from an album.',
 		});
 		throw error;
-	};	
+	};
+};
+
+const destroy = async (req, res) => {
+	const albumId = req.params.albumId;
+	const user_id = req.user.user_id;
+
+	// Check if the requested album exists with the current user ID
+	const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
+	if (!album) {
+		res.status(404).send({
+			status: 'fail',
+			data: 'Album not found',
+		});
+		return;
+	};
+
+	try {
+		let deletedAlbum = await album.photos().detach();
+		deletedAlbum = await album.destroy();
+
+		res.status(200).send({
+			status: 'success',
+			data: null,
+		});
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown in database when attempting to delete an album.',
+		});
+		throw error;
+	};
 }
 
 module.exports = {
@@ -295,5 +327,6 @@ module.exports = {
 	store,
 	addPhoto,
 	update,
+	removePhoto,
 	destroy,
 }

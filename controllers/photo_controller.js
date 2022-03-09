@@ -165,7 +165,7 @@ const destroy = async (req, res) => {
 		
 		res.status(200).send({
 			status: 'success',
-			data: deletedPhoto,
+			data: null,
 		});
 	} catch (error) {
 		res.status(500).send({
