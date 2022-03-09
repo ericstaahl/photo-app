@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userValidationRules = require('../validation/user');
+const userValidationRules = require('../validation/User');
 const authController = require('../controllers/auth_controller');
 
 /* GET / */
