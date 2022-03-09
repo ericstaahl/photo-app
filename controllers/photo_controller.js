@@ -144,11 +144,13 @@ const update = async (req, res) => {
 	};
 };
 
+// Delete a photo
+
 const destroy = async (req, res) => {
 	const photoId = req.params.photoId;
 	const user_id = req.user.user_id;
 
-	// Check if the requested photo exist with the current user ID
+	// Check if the requested photo exists with the current user ID
 	const photo = await new models.Photos({ id: photoId, user_id: user_id }).fetch({ withRelated: ['album'], require: false });
 	if (!photo) {
 		res.status(404).send({
