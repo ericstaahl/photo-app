@@ -92,6 +92,15 @@ const addPhoto = async (req, res) => {
 	const user_id = req.user.user_id;
 	const photo_id = req.body.photo_id;
 
+	// Check if the album exists (and owned by the user) in the database
+	const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
+	if (!album) {
+		return res.status(404).send({
+			status: 'fail',
+			data: 'Album not found',
+		});
+	};
+
 	if (!Array.isArray(photo_id)) {
 
 		// Check if the photo exist (and owned by the user) in the database
@@ -101,7 +110,8 @@ const addPhoto = async (req, res) => {
 				status: 'fail',
 				data: 'Photo not found',
 			});
-		}
+		};
+
 		// Check if the photo already exists in the album
 		const checkingAlbum = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ withRelated: ['photos'], require: false });
 		let exists = false;
@@ -236,15 +246,47 @@ const update = async (req, res) => {
 }
 
 /**
- * Destroy a specific resource
+ * Remove a photo from an album
  *
- * DELETE /:exampleId
+ * DELETE /albums/:albumId/photos/:photoId
  */
-const destroy = (req, res) => {
-	res.status(400).send({
-		status: 'fail',
-		message: 'You need to write the code for deleting this resource yourself.',
-	});
+const destroy = async (req, res) => {
+	const photoId = req.params.photoId;
+	const albumId = req.params.albumId;
+	const user_id = req.user.user_id;
+
+	// Check if the requested photo exists with the current user ID
+	const photo = await new models.Photos({ id: photoId, user_id: user_id }).fetch({ withRelated: ['album'], require: false });
+	if (!photo) {
+		res.status(404).send({
+			status: 'fail',
+			data: 'Photo not found',
+		});
+		return;
+	};
+		// Check if the requested album exists with the current user ID
+		const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
+		if (!album) {
+			res.status(404).send({
+				status: 'fail',
+				data: 'Album not found',
+			});
+			return;
+		};
+	try {
+		let detachedPhoto = await album.photos().detach(photo.id);
+		
+		res.status(200).send({
+			status: 'success',
+			data: detachedPhoto,
+		});
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Exception thrown in database when attempting to remove a photo from an album.',
+		});
+		throw error;
+	};	
 }
 
 module.exports = {

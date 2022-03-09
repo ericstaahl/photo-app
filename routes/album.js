@@ -19,6 +19,7 @@ router.post('/:albumId/photos', auth.validateToken, routesController.addPhoto);
 /* Update a specific resource */
 router.put('/:albumId', auth.validateToken, albumValidationRules.updateRules, routesController.update);
 
+router.delete('/:albumId/photos/:photoId', auth.validateToken, routesController.destroy);
 // /* Destroy a specific resource */
 // router.delete('/:exampleId', exampleController.destroy);
 
