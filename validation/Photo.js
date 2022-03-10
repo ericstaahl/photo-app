@@ -5,15 +5,15 @@
 const { body } = require('express-validator');
 
 const createRules = [
-	body('title').exists().isLength({ min: 3 }),
-	body('url').exists().isURL(),
-	body('comment').optional().isLength({ min: 3 }),
+	body('title').exists().isString().isLength({ min: 3 }),
+	body('url').exists().isString().isURL(),
+	body('comment').optional().isString().isLength({ min: 3 }),
 ];
 
 const updateRules = [
-	body('title').optional().isLength({ min: 3 }),
-	body('url').optional().isURL(),
-	body('comment').optional().isLength({ min: 3 }),
+	body('title').optional().isString().isLength({ min: 3 }),
+	body('url').optional().isString().isURL(),
+	body('comment').optional().isString().isLength({ min: 3 }),
 ];
 
 module.exports = {

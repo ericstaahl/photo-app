@@ -12,7 +12,9 @@ const models = require('../models');
 const registerRules = [
 	body('email')
 		.exists()
-		.isLength({ min: 2 })
+		.isString()
+		.normalizeEmail()
+		.isEmail()
 		.custom(async (req) => {
 			console.log(req)
 			const user = await new models.User({email: req}).fetch({ require: false });
@@ -20,15 +22,15 @@ const registerRules = [
 				return Promise.reject('Email already in use');
 			};
 		}),
-	body('first_name').exists().isLength({ min: 2 }),
-	body('last_name').exists().isLength({ min: 2 }),
-	body('password').exists().isLength({ min: 8 }),
+	body('first_name').exists().isString().isLength({ min: 3 }),
+	body('last_name').exists().isString().isLength({ min: 3 }),
+	body('password').exists().isString().isLength({ min: 6 }),
 ];
 
 const updateRules = [
-	body('first_name').optional().isLength({ min: 2 }),
-	body('last_name').optional().isLength({ min: 2 }),
-	body('password').optional().isLength({ min: 8 }),
+	body('first_name').optional().isString().isLength({ min: 3 }),
+	body('last_name').optional().isString().isLength({ min: 3 }),
+	body('password').optional().isString().isLength({ min: 6 }),
 ];
 
 module.exports = {
