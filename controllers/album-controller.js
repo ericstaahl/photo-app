@@ -170,7 +170,7 @@ const addPhoto = async (req, res) => {
 				checkedIdsRound2.push(currentPhotoId);
 			}
 		};
-		
+
 		if (checkedIdsRound2.length == 0) {
 			return res.status(200).send({
 				status: 'The following photos already exist on the album',
@@ -196,7 +196,7 @@ const addPhoto = async (req, res) => {
 }
 
 /**
- * Update a specific resource
+ * Update a specific album
  *
  * PUT /:exampleId
  */
@@ -204,7 +204,7 @@ const update = async (req, res) => {
 	const albumId = req.params.albumId;
 	const user_id = req.user.user_id;
 
-	// make sure example exists
+	// make sure album exists
 	const album = await new models.Albums({ id: albumId, user_id: user_id }).fetch({ require: false });
 	if (!album) {
 		debug("Album to update was not found. %o", { id: albumId });

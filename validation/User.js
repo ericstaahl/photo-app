@@ -6,13 +6,6 @@ const { body } = require('express-validator');
 const models = require('../models');
 
 
-/**
- * Register User validation rules
- *
- * Required: title
- * Optional: -
- */
-
 // 'custom' checks whether a user exists with the email sent by the user.
 // If not, the check passes and a user can be created (provided the other checks do not fail).
 
@@ -32,12 +25,6 @@ const registerRules = [
 	body('password').exists().isLength({ min: 8 }),
 ];
 
-/**
- * Update User validation rules
- *
- * Required: -
- * Optional: title
- */
 const updateRules = [
 	body('first_name').optional().isLength({ min: 2 }),
 	body('last_name').optional().isLength({ min: 2 }),
