@@ -1,0 +1,1095 @@
+{
+	"info": {
+		"_postman_id": "0058e6fa-5444-43c0-a9f2-e876d1edd08e",
+		"name": "Photo_App_Heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user1",
+			"item": [
+				{
+					"name": "Album",
+					"item": [
+						{
+							"name": "POST /albums",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"User 1:s second album\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /albums",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /albums:albumId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/11",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST /albums/:albumId/photos Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"photo_id\": [11, 21]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums/21/photos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"21",
+										"photos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT /albums/:albumId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"User 1:s first album\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /albums/:albumId/ Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/11",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /albums/:albumId/photos/:photoId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/11/photos/11",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"11",
+										"photos",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Photo",
+					"item": [
+						{
+							"name": "POST /photos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"User 1:s third photo\",\n    \"url\": \"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/photos/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /photos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /photos/photoId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos/21",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"21"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT /photos/photoId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"The third photo\",\n    \"comment\": \"I added a comment.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/photos/21",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"21"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /photos/:photoId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos/21",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"21"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /login  (login user1)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"epost1@mail.se\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlcG9zdDFAbWFpbC5zZSIsInVzZXJfaWQiOjEsIm5hbWUiOiJmw7ZybmFtbjEgZWZ0ZXJuYW1uMSIsImlhdCI6MTY0NjkxOTczOCwiZXhwIjoxNjQ2OTIzMzM4fQ.GRdXGXYUuW7GFiSDlr0PAGZVfD5J5bvWUyxLkUNW8g8",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "user2",
+			"item": [
+				{
+					"name": "Album",
+					"item": [
+						{
+							"name": "POST /albums",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"User 2:s second photo album\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /albums",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /albums:albumId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/31",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"31"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST /albums/:albumId/photos Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"photo_id\": [21, 41]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums/31/photos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"31",
+										"photos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT /albums/:albumId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"New title for album\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums/11",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /albums/:albumId/ Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /albums/:albumId/photos/:photoId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/41/photos/41",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"41",
+										"photos",
+										"41"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Photo",
+					"item": [
+						{
+							"name": "POST /photos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Third photo of user 2\",\n    \"url\": \"https://images.unsplash.com/photo-1497449493050-aad1e7cad165?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/photos/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /photos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /photos/photoId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos/41",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"41"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT /photos/photoId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"New title for photo\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/photos/51",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"51"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /photos/:photoId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos/31",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"31"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /login  (login user2)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"epost2@mail.se\",\n    \"password\": \"abcdefgh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlcG9zdDJAbWFpbC5zZSIsInVzZXJfaWQiOjExLCJuYW1lIjoiZsO2cm5hbW4yIGVmdGVybmFtbjIiLCJpYXQiOjE2NDY5MjA1MDUsImV4cCI6MTY0NjkyNDEwNX0.SQoLwVggxAmceJ6Gl6wkgZBdh_rjHSxVkSd5d4cYcEY",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "user3",
+			"item": [
+				{
+					"name": "Album",
+					"item": [
+						{
+							"name": "POST /albums",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"User 3:s third photo album\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /albums",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /albums:albumId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST /albums/:albumId/photos Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"photo_id\": [71]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums/61/photos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"61",
+										"photos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT /albums/:albumId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"New title for album\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/albums/61",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"61"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /albums/:albumId/ Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/41",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"41"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /albums/:albumId/photos/:photoId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/albums/1/photos/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"albums",
+										"1",
+										"photos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Photo",
+					"item": [
+						{
+							"name": "POST /photos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Second photo (user3)\",\n    \"url\": \"https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/photos/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /photos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET /photos/photoId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos/12",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT /photos/photoId",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"New title for photo\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/photos/8",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE /photos/:photoId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/photos/9",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"photos",
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST /login  (login user3)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"epost3@mail.se\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlcG9zdDNAbWFpbC5zZSIsInVzZXJfaWQiOjIxLCJuYW1lIjoiZsO2cm5hbW4zIGVmdGVybmFtbjMiLCJpYXQiOjE2NDY5MjExNzYsImV4cCI6MTY0NjkyNDc3Nn0.F9m3cLWlvcvsuvriu1H5s5YxrXzG4dh5M8zRdfIDyJY",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "POST /refresh",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlcG9zdEBtYWlsLnNlIiwidXNlcl9pZCI6MSwibmFtZSI6ImbDtnJuYW1uIGVmdGVybmFtbiIsImlhdCI6MTY0NjQ2OTEzMywiZXhwIjoxNjQ2NDc2MzMzfQ.Qy5SjYP7VtCxl9_R-IGxCszwUq0cQzpyGBskKfJBCWk\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/refresh",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"epost3@mail.se\",\n    \"first_name\": \"förnamn3\",\n    \"last_name\": \"efternamn3\",\n    \"password\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://warm-cove-32574.herokuapp.com",
+			"type": "default"
+		}
+	]
+}
