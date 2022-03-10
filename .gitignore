@@ -1,5 +1,4 @@
 .DS_Store
-.env.example
 /00-sourcefiles/
 /**/node_modules/
 *-nogit
