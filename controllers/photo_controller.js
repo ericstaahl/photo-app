@@ -8,9 +8,7 @@ const models = require('../models');
 
 const index = async (req, res) => {
 	const user_id = req.user.user_id;
-	console.log(user_id)
 	const photo = await new models.Photos().where('user_id', '=', user_id).fetchAll({ require: false });
-	console.log(photo);
 	if (!photo) {
 		res.status(404).send({
 			status: 'fail',

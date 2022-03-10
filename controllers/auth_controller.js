@@ -91,10 +91,8 @@ const login = async (req, res) => {
 const refresh = async (req, res) => {
 	try {
 		const payload = jwt.verify(req.body.token, process.env.REFRESH_TOKEN_SECRET);
-		console.log('payload', payload);
 		delete payload.iat;
 		delete payload.exp;
-		console.log('payload', payload);
 
 		const access_token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_LIFETIME, });
 

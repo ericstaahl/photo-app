@@ -156,7 +156,6 @@ const addPhoto = async (req, res) => {
 				checkedIds.push(currentPhotoId)
 			};
 		};
-		console.log("All of the existing ID:s " + checkedIds)
 
 		// Check if the photos already exists in the album
 		const checkedIdsRound2 = [];
@@ -171,7 +170,7 @@ const addPhoto = async (req, res) => {
 				checkedIdsRound2.push(currentPhotoId);
 			}
 		};
-		console.log("All of the ID:s not in the album: " + checkedIdsRound2)
+		
 		if (checkedIdsRound2.length == 0) {
 			return res.status(200).send({
 				status: 'The following photos already exist on the album',
