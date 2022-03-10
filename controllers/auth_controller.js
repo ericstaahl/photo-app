@@ -38,9 +38,9 @@ const register = async (req, res) => {
 		const user = await new models.User(validData).save();
 		debug("Created new user successfully: %O", user);
 
-		// Avoid sending password back to user
-
+		// Avoid sending password and id back to user
 		delete user.attributes.password;
+		delete user.attributes.id;
 		
 		res.send({
 			status: 'success',
