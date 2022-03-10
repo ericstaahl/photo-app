@@ -23,8 +23,6 @@ const index = async (req, res) => {
 		});
 }
 
-
-
 /**
  * Store a new photo on the current user
  *

@@ -125,7 +125,7 @@ const addPhoto = async (req, res) => {
 			};
 		});
 		if (exists) {
-			return res.send({
+			return res.status(409).send({
 				status: 'fail',
 				data: 'Photo already exists on the album',
 			});
