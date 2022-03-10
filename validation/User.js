@@ -5,14 +5,28 @@
 const { body } = require('express-validator');
 const models = require('../models');
 
+
 /**
  * Register User validation rules
  *
  * Required: title
  * Optional: -
  */
+
+// 'custom' checks whether a user exists with the email sent by the user.
+// If not, the check passes and a user can be created (provided the other checks do not fail).
+
 const registerRules = [
-	body('email').exists().isLength({ min: 2 }),
+	body('email')
+		.exists()
+		.isLength({ min: 2 })
+		.custom(async (req) => {
+			console.log(req)
+			const user = await new models.User({email: req}).fetch({ require: false });
+			if (user) {
+				return Promise.reject('Email already in use');
+			};
+		}),
 	body('first_name').exists().isLength({ min: 2 }),
 	body('last_name').exists().isLength({ min: 2 }),
 	body('password').exists().isLength({ min: 8 }),

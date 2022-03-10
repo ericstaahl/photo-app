@@ -3,7 +3,6 @@
  */
 
 const { body } = require('express-validator');
-const models = require('../models');
 
 /**
  * Create Example validation rules
