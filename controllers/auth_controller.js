@@ -7,7 +7,6 @@ const debug = require('debug')('books:example_controller');
 const { matchedData, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
-const User = require('../models/User');
 
 /**
  * Store a new user
@@ -47,7 +46,7 @@ const register = async (req, res) => {
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Exception thrown in database when creating a new example.',
+			message: 'Exception thrown in database when creating a new user.',
 		});
 		throw error;
 	};
