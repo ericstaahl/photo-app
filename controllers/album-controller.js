@@ -39,7 +39,7 @@ const show = async (req, res) => {
 	if (!album) {
 		res.status(404).send({
 			status: 'fail',
-			data: 'No album were found',
+			data: 'Album not found',
 		})
 	} else {
 		res.status(200).send({
