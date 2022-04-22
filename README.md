@@ -12,3 +12,8 @@ Albums and photos can also be deleted by their corresponding user.
 - All endpoints for photos and albums must require authentication.  
 - JSON Web Tokens must be used.  
 - Refresh of access token must work.
+
+
+## Example of response from the API
+<img width="769" alt="Skärmavbild 2022-04-22 kl  15 51 36" src="https://user-images.githubusercontent.com/94179820/164728102-7f2dcfcf-b260-47c6-9ff0-cd54de243193.png">
+
